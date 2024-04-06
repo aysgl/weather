@@ -1,14 +1,23 @@
 import { WeatherContext } from "@/context/WeatherContext";
+import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 
 const SearchBar = ({ onSubmit }) => {
   const { city, setCity } = useContext(WeatherContext);
+  const router = useRouter();
+
   const handleChange = (e) => {
     setCity(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(e);
+    router.push(`/weather/${city}`);
+  };
+
   return (
-    <form className="max-w-md mb-6" onSubmit={onSubmit}>
+    <form className="max-w-md mb-6" onSubmit={handleSubmit}>
       <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
@@ -33,6 +42,7 @@ const SearchBar = ({ onSubmit }) => {
           className="outline-none block w-full p-4 ps-10 text-sm text-white border border-white-300 rounded-lg bg-transparent"
           value={city}
           onChange={handleChange}
+          aria-label="input search"
           required
         />
       </div>

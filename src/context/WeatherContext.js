@@ -1,18 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import React, { createContext, useEffect, useState } from "react";
 import { getWeatherData } from "@/utils/api";
-import { createContext, useEffect, useState } from "react";
 
 export const WeatherContext = createContext();
 
 export const WeatherProvider = ({ children }) => {
   const [city, setCity] = useState("Miami");
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    getWeatherData(city);
+    getWeatherData(city)
+      .then((res) => {
+        setData(res);
+      })
+      .catch((err) => console.error(err));
   }, [city]);
 
   return (
-    <WeatherContext.Provider value={{ city, setCity, getWeatherData }}>
+    <WeatherContext.Provider value={{ city, setCity, data, setData }}>
       {children}
     </WeatherContext.Provider>
   );

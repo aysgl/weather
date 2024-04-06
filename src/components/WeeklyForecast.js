@@ -4,9 +4,6 @@ import { formatTemperature, getRandomTemperatureData } from "@/utils/contants";
 import { getWeatherData } from "@/utils/api";
 
 const WeeklyForecast = ({ data, randomTemperatureData }) => {
-  console.log("r", randomTemperatureData);
-  console.log("d", data);
-
   return (
     <div className="my-10">
       <Lines day={randomTemperatureData} />
@@ -27,24 +24,25 @@ const WeeklyForecast = ({ data, randomTemperatureData }) => {
 
 export default WeeklyForecast;
 
-export const getServerSideProps = async () => {
-  try {
-    const data = await getWeatherData();
-    const randomTemperatureData = getRandomTemperatureData(7, data);
+// export const getServerSideProps = async () => {
+//   try {
+//     const city = "New York";
+//     const data = await getWeatherData(city);
+//     const randomTemperatureData = getRandomTemperatureData(7, data);
 
-    return {
-      props: {
-        data,
-        randomTemperatureData,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
-    return {
-      props: {
-        data: null,
-        randomTemperatureData: null,
-      },
-    };
-  }
-};
+//     return {
+//       props: {
+//         data,
+//         randomTemperatureData,
+//       },
+//     };
+//   } catch (error) {
+//     console.error("Error fetching weather data:", error);
+//     return {
+//       props: {
+//         data: null,
+//         randomTemperatureData: null,
+//       },
+//     };
+//   }
+// };
