@@ -1,24 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { format } from "date-fns";
 import SearchBar from "@/components/SearchBar";
 import { cityData, formatTemperature, getWeather } from "@/utils/contants";
-import { WeatherContext } from "@/context/WeatherContext";
 import Link from "next/link";
 import { getWeatherData } from "@/utils/api";
 
-export default function Weather() {
-  const { city, data, setData } = useContext(WeatherContext);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await getWeatherData(city);
-      setData(res);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+export default function Weather({ data }) {
   return (
     <main
       className={`bg-fixed bg-opacity-50 min-h-screen flex-col items-center justify-between md:p-20 p-12`}
@@ -30,7 +17,7 @@ export default function Weather() {
         backgroundPosition: "center",
       }}
     >
-      <SearchBar onSubmit={handleSubmit} />
+      <SearchBar />
 
       <div className="z-10 max-w-5xl w-full items-center justify-between text-sm">
         {data && (
@@ -53,11 +40,7 @@ export default function Weather() {
         <p className="mb-4 text-xs">Random City</p>
         <div className="flex flex-wrap  gap-2">
           {cityData?.map((city) => (
-            <Link
-              key={city.id}
-              href="/weather/[city]"
-              as={`/weather/${city.slug}`}
-            >
+            <Link key={city.id} href="/[city]" as={`/${city.slug}`}>
               <span className="bg-white bg-opacity-20 rounded px-3 py-2 block text-center">
                 {city.name}
               </span>
@@ -67,4 +50,14 @@ export default function Weather() {
       </div>
     </main>
   );
+}
+
+export async function getServerSideProps() {
+  const city = "Miami";
+  const data = await getWeatherData(city);
+  return {
+    props: {
+      data,
+    },
+  };
 }

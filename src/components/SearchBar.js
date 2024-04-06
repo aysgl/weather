@@ -1,19 +1,17 @@
-import { WeatherContext } from "@/context/WeatherContext";
-import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
-const SearchBar = ({ onSubmit }) => {
-  const { city, setCity } = useContext(WeatherContext);
+const SearchBar = () => {
   const router = useRouter();
+  const [searchCity, setSearchCity] = useState("");
 
   const handleChange = (e) => {
-    setCity(e.target.value);
+    setSearchCity(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(e);
-    router.push(`/weather/${city}`);
+    router.push(`/weather/${searchCity}`);
   };
 
   return (
@@ -40,8 +38,9 @@ const SearchBar = ({ onSubmit }) => {
           type="search"
           id="default-search"
           className="outline-none block w-full p-4 ps-10 text-sm text-white border border-white-300 rounded-lg bg-transparent"
-          value={city}
+          value={searchCity}
           onChange={handleChange}
+          placeholder="Enter a city..."
           aria-label="input search"
           required
         />

@@ -2,7 +2,6 @@ import React from "react";
 import Info from "@/components/Info";
 import WeeklyForecast from "@/components/WeeklyForecast";
 import { format } from "date-fns";
-import "../../../app/globals.css";
 import { getWeatherData } from "@/utils/api";
 import {
   formatTemperature,
