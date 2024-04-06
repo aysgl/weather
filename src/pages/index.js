@@ -54,10 +54,17 @@ export default function Weather({ data }) {
 
 export async function getServerSideProps() {
   const city = "Miami";
-  const data = await getWeatherData(city);
-  return {
-    props: {
-      data,
-    },
-  };
+  try {
+    const data = await getWeatherData(city);
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+      errorMessage: error.message || "City not found",
+    };
+  }
 }

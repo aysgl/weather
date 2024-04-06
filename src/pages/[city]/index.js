@@ -21,6 +21,13 @@ const WeatherDetail = ({ data, randomTemperatureData }) => {
         backgroundPosition: "center",
       }}
     >
+      {/* <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={`weather, forecast, ${data?.name}`} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+      </Head> */}
       <p>{format(new Date(), "'Today is ' MMMM d, yyyy")}</p>
       <h1 className="text-4xl font-bold mb-4">
         {data?.name}{" "}
@@ -55,7 +62,10 @@ export const getServerSideProps = async (context) => {
   } catch (error) {
     console.error("Error fetching weather data:", error);
     return {
-      props: { data: null, randomTemperatureData: null },
+      props: {
+        errorMessage: error.message || "City not found",
+      },
+      notFound: true,
     };
   }
 };
