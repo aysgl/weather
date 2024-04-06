@@ -1,12 +1,11 @@
 "use client";
-import { MapProvider } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import Weather from "./weather";
+import Weather from "../pages/weather";
+import { WeatherProvider } from "@/context/WeatherContext";
 
 export default function Home() {
   return (
-    <MapProvider>
+    <WeatherProvider>
       <Weather />
-    </MapProvider>
+    </WeatherProvider>
   );
 }
