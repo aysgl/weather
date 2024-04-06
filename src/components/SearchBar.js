@@ -11,7 +11,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push(`/weather/${searchCity}`);
+    router.push(`/${searchCity}`);
   };
 
   return (
