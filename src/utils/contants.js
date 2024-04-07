@@ -21,6 +21,8 @@ export const getWeather = (descriptions) => {
     return "url('https://images.pexels.com/photos/5198485/pexels-photo-5198485.jpeg')";
   } else if (descriptions?.includes("dust")) {
     return "url('https://images.pexels.com/photos/14061016/pexels-photo-14061016.jpeg')";
+  } else if (descriptions?.includes("mist")) {
+    return "url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
   } else {
     return "bg-gradient-to-r from-purple-500 to-pink-500";
   }
