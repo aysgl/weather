@@ -1,31 +1,36 @@
 import { format, addDays, isToday, isTomorrow } from "date-fns";
 
 export const getWeather = (descriptions) => {
-  if (descriptions?.includes("broken-clouds")) {
-    return "url('https://images.pexels.com/photos/14771510/pexels-photo-14771510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
-  } else if (descriptions?.includes("scattered clouds")) {
-    return "url('https://images.pexels.com/photos/18339547/pexels-photo-18339547/free-photo-of-scenic-view-of-mountains.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
-  } else if (descriptions?.includes("overcast clouds")) {
-    return "url('https://images.pexels.com/photos/18069722/pexels-photo-18069722/free-photo-of-landscape-of-high-rocky-mountains-under-a-cloudy-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
-  } else if (descriptions?.includes("broken clouds")) {
-    return "url('https://images.pexels.com/photos/4338092/pexels-photo-4338092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
-  } else if (descriptions?.includes("few clouds")) {
-    return "url('https://images.pexels.com/photos/18336536/pexels-photo-18336536/free-photo-of-boats-of-fishermen-anchored-by-shore.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
-  } else if (descriptions?.includes("clear sky")) {
-    return "url('https://images.pexels.com/photos/998660/pexels-photo-998660.jpeg')";
-  } else if (descriptions?.includes("light intensity shower rain")) {
-    return "url('https://images.pexels.com/photos/2422588/pexels-photo-2422588.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
-  } else if (descriptions?.includes("light rain")) {
-    return "url('https://images.pexels.com/photos/3497624/pexels-photo-3497624.jpeg')";
-  } else if (descriptions?.includes("moderate rain")) {
-    return "url('https://images.pexels.com/photos/5198485/pexels-photo-5198485.jpeg')";
-  } else if (descriptions?.includes("dust")) {
-    return "url('https://images.pexels.com/photos/14061016/pexels-photo-14061016.jpeg')";
-  } else if (descriptions?.includes("mist")) {
-    return "url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')";
-  } else {
-    return "bg-gradient-to-r from-purple-500 to-pink-500";
+  const weatherBackgrounds = {
+    "broken-clouds":
+      "url('https://images.pexels.com/photos/14771510/pexels-photo-14771510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+    "scattered clouds":
+      "url('https://images.pexels.com/photos/18339547/pexels-photo-18339547/free-photo-of-scenic-view-of-mountains.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+    "overcast clouds":
+      "url('https://images.pexels.com/photos/18069722/pexels-photo-18069722/free-photo-of-landscape-of-high-rocky-mountains-under-a-cloudy-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+    "broken clouds":
+      "url('https://images.pexels.com/photos/4338092/pexels-photo-4338092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+    "few clouds":
+      "url('https://images.pexels.com/photos/18336536/pexels-photo-18336536/free-photo-of-boats-of-fishermen-anchored-by-shore.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+    "clear sky":
+      "url('https://images.pexels.com/photos/998660/pexels-photo-998660.jpeg')",
+    "light intensity shower rain":
+      "url('https://images.pexels.com/photos/2422588/pexels-photo-2422588.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+    "light rain":
+      "url('https://images.pexels.com/photos/3497624/pexels-photo-3497624.jpeg')",
+    "moderate rain":
+      "url('https://images.pexels.com/photos/5198485/pexels-photo-5198485.jpeg')",
+    dust: "url('https://images.pexels.com/photos/14061016/pexels-photo-14061016.jpeg')",
+    mist: "url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+  };
+
+  for (const [description, url] of Object.entries(weatherBackgrounds)) {
+    if (descriptions?.includes(description)) {
+      return url;
+    }
   }
+
+  return null;
 };
 
 export const formatTemperature = (temperature) => {

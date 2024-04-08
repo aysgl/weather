@@ -10,34 +10,35 @@ import {
 } from "@/utils/contants";
 
 const WeatherDetail = ({ data, randomTemperatureData }) => {
+  const { weather, main, name } = data || {};
+
   return (
     <main
-      className={`bg-fixed bg-opacity-50 min-h-screen flex-col items-center justify-between md:p-20 p-12`}
+      className="bg-fixed bg-opacity-50 min-h-screen flex flex-col  justify-between md:p-20 p-12"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), ${getWeather(
-          data?.weather?.map((w) => w?.description)
+          weather?.map((w) => w.description)
         )}`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta name="keywords" content={`weather, forecast, ${data?.name}`} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-      </Head> */}
-      <p>{format(new Date(), "'Today is ' MMMM d, yyyy")}</p>
-      <h1 className="text-4xl font-bold mb-4">
-        {data?.name}{" "}
-        <span className="text-4xl font-thin me-3">
-          {data?.weather?.map((w) => w?.description)}
-        </span>
-      </h1>
-      <h2 className="text-9xl font-thin mb-4">
-        {formatTemperature(data?.main?.temp)}
-      </h2>
+      {weather && (
+        <>
+          <p>{format(new Date(), "'Today is ' MMMM d, yyyy")}</p>
+          <h1 className="text-4xl font-bold mb-4">
+            {name}{" "}
+            <span className="text-4xl font-thin me-3">
+              {weather.map((w) => w.description).join(", ")}
+            </span>
+          </h1>
+        </>
+      )}
+      {main && (
+        <h2 className="text-9xl font-thin mb-4">
+          {formatTemperature(main.temp)}
+        </h2>
+      )}
       <Info data={data} />
       <WeeklyForecast
         data={data}
